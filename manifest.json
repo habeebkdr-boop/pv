@@ -5,8 +5,8 @@
   "start_url": "/pv/",
   "scope": "/pv/",
   "display": "standalone",
-  "background_color": "#2d5a27",
-  "theme_color": "#1a56db",
+  "background_color": "#f4f7fb",
+  "theme_color": "#f4f7fb",
   "orientation": "portrait",
   "icons": [
     {
