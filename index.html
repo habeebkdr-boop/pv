@@ -78,14 +78,15 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
 .note{font-size:11px;color:var(--mut);margin-top:6px;font-weight:600;}
 .errmsg{background:#FEF2F2;border:2px solid #FECACA;color:var(--red);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;}
 .errmsg.visible{display:block;}
-.btn-gold{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold),var(--gom));color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:transform 0.15s;box-shadow:0 6px 20px rgba(200,130,10,0.35);letter-spacing:0.5px;}
+.btn-gold{width:100%;padding:15px 24px;background:linear-gradient(180deg,#f5b931,#c8820a);color:#fff;border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 0 #7c4f00,0 8px 12px rgba(0,0,0,0.25);transform:translateY(0);transition:all 0.15s;letter-spacing:0.5px;}
 .btn-gold:active{transform:scale(0.97);}
 .btn-gold:disabled{opacity:0.6;cursor:not-allowed;}
-.btn-green{width:100%;padding:15px;background:linear-gradient(135deg,var(--g),var(--gm));color:#fff;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.15s;box-shadow:0 6px 20px rgba(46,125,50,0.3);}
-.btn-green:active{transform:scale(0.97);}
+.btn-green{width:100%;padding:15px 24px;background:linear-gradient(180deg,#4caf50,#2e7d32);color:#fff;border:none;border-radius:50px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 6px 0 #1b5e20,0 8px 12px rgba(0,0,0,0.25);transform:translateY(0);transition:all 0.15s;letter-spacing:0.5px;}
 .btn-green:disabled{opacity:0.6;cursor:not-allowed;}
+.btn-green:active{transform:translateY(4px);box-shadow:0 2px 0 #1b5e20,0 3px 6px rgba(0,0,0,0.2);}
+.btn-gold:active{transform:translateY(4px);box-shadow:0 2px 0 #7c4f00,0 3px 6px rgba(0,0,0,0.2);}
 
-/* DASHBOARD TOP BAR */
+  /* DASHBOARD TOP BAR */
 .dash-topbar{background:linear-gradient(135deg,var(--gd),var(--g));padding:14px 20px;display:flex;align-items:center;justify-content:space-between;}
 .logo-sm{width:38px;height:38px;border-radius:50%;border:2px solid var(--gol);background:#fff;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .logo-sm img{width:100%;height:100%;object-fit:cover;}
@@ -524,7 +525,7 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
       <div id="paymentHome">
         <div class="pay-hdr"><div class="step-badge">💳</div><div><h2>Payment</h2><p>Select payment type below</p></div></div>
         <div class="pay-body">
-          <button class="btn-green" style="margin-bottom:12px;" onclick="goToPayment(false)">➕ Submit My Payment</button>
+          <button class="btn-green" style="margin-bottom:30px;" onclick="goToPayment(false)">➕ Submit My Payment</button>
           <button class="btn-gold" onclick="goToPayment(true)">👥 Pay for Multiple Members </button>
         </div>
         <!-- scrolling card -->
