@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PVSS Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@400;600;700;800&family=Playfair+Display:wght@700;900&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background:#f0f4f8;
+    font-family:'Noto Sans Malayalam','Nunito',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px 0;
+  }
+
+  .wrapper {
+    width:100%;
+    max-width:480px;
+  }
+
+  /* Header */
+  .hdr {
+    padding:0 20px 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .hdr-title {
+    font-size:12px;
+    font-weight:800;
+    color:#6b7280;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  }
+  /* Dot indicators */
+  .dots {
+    display:flex;
+    gap:5px;
+    align-items:center;
+  }
+  .dot {
+    width:6px; height:6px;
+    border-radius:50%;
+    background:#d1d5db;
+    transition:all 0.3s;
+  }
+  .dot.active {
+    width:18px;
+    border-radius:3px;
+    background:#1a56db;
+  }
+
+  /* Slider */
+  .slider {
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:14px;
+    padding:4px 20px 16px;
+  }
+  .slider::-webkit-scrollbar { display:none; }
+
+  /* Card */
+  .card {
+    min-width:80%;
+    max-width:100%;
+    scroll-snap-align:start;
+    flex-shrink:0;
+    border-radius:20px;
+    padding:18px 16px;
+    position:relative;
+    overflow:hidden;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    cursor:pointer;
+    transition:transform 0.2s;
+  }
+  .card:active { transform:scale(0.98); }
+
+  /* Card themes */
+  .card-1 { background:linear-gradient(135deg,#1a3a2a,#2e7d32); }
+  .card-2 { background:linear-gradient(135deg,#1e3a8a,#1a56db); }
+  .card-3 { background:linear-gradient(135deg,#78350f,#c8820a); }
+  .card-4 { background:linear-gradient(135deg,#1e1b4b,#4338ca); }
+
+  /* Decorative circle */
+  .card::before {
+    content:'';
+    position:absolute;
+    top:-40px; right:-40px;
+    width:160px; height:160px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.07);
+  }
+  .card::after {
+    content:'';
+    position:absolute;
+    bottom:-50px; left:-20px;
+    width:130px; height:130px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.05);
+  }
+
+  .card-num {
+    font-size:10px;
+    font-weight:800;
+    color:rgba(255,255,255,0.45);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+    font-family:'Nunito',sans-serif;
+  }
+
+  .card-title {
+    font-size:14px;
+    font-weight:800;
+    color:#fff;
+    line-height:1.4;
+    font-family:'Noto Sans Malayalam',sans-serif;
+    word-break:break-word;
+  }
+
+  .card-desc {
+    font-size:11px;
+    color:rgba(255,255,255,0.7);
+    line-height:1.6;
+    font-weight:600;
+    font-family:'Noto Sans Malayalam',sans-serif;
+    word-break:break-word;
+    white-space:normal;
+  }
+
+  /* Swipe hint */
+  .hint {
+    text-align:center;
+    font-size:11px;
+    color:#9ca3af;
+    font-weight:700;
+    padding-top:4px;
+    font-family:'Nunito',sans-serif;
+    letter-spacing:0.3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="hdr">
+    <div class="hdr-title"><B>എന്തുകൊണ്ട്  PVSS?</B></div>
+    <div class="dots">
+      <div class="dot active" id="d0"></div>
+      <div class="dot" id="d1"></div>
+      <div class="dot" id="d2"></div>
+      <div class="dot" id="d3"></div>
+    </div>
+  </div>
+
+  <div class="slider" id="slider">
+
+    <!-- Card 1 -->
+    <div class="card card-1">
+      <div class="card-num">01 / 04</div>
+        <div class="card-title">🤝 കുടുംബ ഭദ്രത</div>
+        <div class="card-desc">ഓരോ നിക്ഷേപവും ഒരു കൂട്ടായ ഫണ്ട് കെട്ടിപ്പടുക്കുന്നു. ഒരു അംഗവും സാമ്പത്തിക പ്രതിസന്ധിയിൽ ഒറ്റയ്ക്ക് അഭിമുഖീകരിക്കേണ്ടി വരില്ല.</div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card card-2">
+      <div class="card-num">02 / 04</div>
+        <div class="card-title">📈 സമ്പാദ്യ ശീലം</div>
+        <div class="card-desc">മാസംതോറുമുള്ള നിശ്ചിത സംഭാവന നിങ്ങളുടെ സ്വകാര്യ സമ്പാദ്യം സ്ഥിരതയോടെ വളർത്തുന്നു.  നിങ്ങൾ വലിയ ഒരു നിക്ഷേപത്തിന്റെ ഭാഗമാവുന്നു</div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card card-3">
+      <div class="card-num">03 / 04</div>
+        <div class="card-title">🏦 പലിശ രഹിത വായ്പ</div>
+        <div class="card-desc">ആവശ്യം വരുമ്പോൾ ഫണ്ടിൽ നിന്ന് കടം ലഭിക്കും. പലിശ രഹിത സാമ്പത്തിക ക്രമത്തിന്റെ ഭാഗമാവുന്നു.</div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card card-4">
+      <div class="card-num">04 / 04</div>
+        <div class="card-title">🛡️ ചാരിറ്റി പിന്തുണ</div>
+        <div class="card-desc">പ്രതിസന്ധി ഘട്ടങ്ങളിൽ സഹായിക്കാൻ സജീവമായ ഒരു ചാരിറ്റി ഫണ്ടും നമുക്കായുണ്ട്.</div>
+    </div>
+
+  </div>
+
+
+<script>
+  const slider = document.getElementById('slider');
+  const cards  = slider.querySelectorAll('.card');
+  const dots   = [0,1,2,3].map(i => document.getElementById('d'+i));
+  let current  = 0;
+  let autoTimer;
+
+  function goTo(index) {
+    current = index;
+    const card = cards[index];
+    slider.scrollTo({ left: card.offsetLeft - 20, behavior: 'smooth' });
+    dots.forEach((d,i) => d.classList.toggle('active', i === index));
+  }
+
+  function next() {
+    goTo((current + 1) % cards.length);
+  }
+
+  function startAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(next, 3500);
+  }
+
+  // Pause auto-scroll on user touch
+  slider.addEventListener('touchstart', () => clearInterval(autoTimer), {passive:true});
+  slider.addEventListener('touchend',   () => { detectCurrent(); startAuto(); }, {passive:true});
+
+  // Detect which card is visible after manual scroll
+  function detectCurrent() {
+    const scrollLeft = slider.scrollLeft;
+    let closest = 0, minDist = Infinity;
+    cards.forEach((c, i) => {
+      const dist = Math.abs(c.offsetLeft - 20 - scrollLeft);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    current = closest;
+    dots.forEach((d,i) => d.classList.toggle('active', i === closest));
+  }
+
+  slider.addEventListener('scroll', detectCurrent, {passive:true});
+
+  // Start
+  startAuto();
+</script>
+
+</body>
+</html>
