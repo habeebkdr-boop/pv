@@ -5,6 +5,7 @@ const CACHE_FILES = [
   BASE,
   BASE + 'index.html',
   BASE + 'manifest.json',
+  BASE + 'cards.html',
   BASE + 'logo-192.png',
   BASE + 'logo-512.png'
 ];
