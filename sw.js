@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pvss-v8';
+const CACHE_NAME = 'pvss-v9';
 const BASE = '/pv/';
 
 const CACHE_FILES = [
