@@ -8,7 +8,7 @@ const CACHE_FILES = [
   BASE + 'cards.html',
   BASE + 'ribbon.html',
   BASE + 'logo-192.png',
-  BASE + 'logo-512.png'
+  BASE + 'logo-512.png',
 ];
 
 self.addEventListener('install', function(e) {
