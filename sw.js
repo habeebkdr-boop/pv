@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pvss-v2'; // ← increment this number every time you push changes
+const CACHE_NAME = 'pvss-v3';
 const FILES = [
   '/',
   '/index.html',
