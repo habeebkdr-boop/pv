@@ -1619,7 +1619,7 @@ function loadPayments(){
       const items=data.items||[];
 
       const pending=items.filter(i=>i.status==='PENDING');
-const done=items.filter(i=>i.status!=='PENDING').reverse().slice(0,20)
+      const done=items.filter(i=>i.status!=='PENDING').slice(0,20)
 
       document.getElementById('pendingBadge').textContent=pending.length+' pending';
 
