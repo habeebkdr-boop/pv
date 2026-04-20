@@ -1110,10 +1110,10 @@ function renderTxnList(type){
     const loanNote=t.loanId?' <span style="font-size:10px;color:#9ca3af;">('+t.loanId+')</span>':'';
     return '<tr style="border-bottom:1px solid #e5e7eb;background:'+bg+';">'+
       '<td style="padding:10px 8px;font-weight:700;color:#374151;white-space:nowrap;">'+formatDMY(t.date||'—')+'</td>'+
-      '<td style="padding:10px 6px;text-align:right;color:'+(s>0?'#16a34a':'#d1d5db')+';">'+
-        (s>0?'₹'+s.toLocaleString():'—')+'</td>'+
-      '<td style="padding:10px 6px;text-align:right;color:'+(e>0?'#d97706':'#d1d5db')+';">'+
-        (e>0?'₹'+e.toLocaleString():'—')+'</td>'+
+      '<td style=\"padding:10px 6px;text-align:right;color:'+(s>0?'#16a34a':s<0?'#dc2626':'#d1d5db')+';\">'+
+       (s!==0?'₹'+s.toLocaleString():'—')+'</td>'+
+      '<td style=\"padding:10px 6px;text-align:right;color:'+(e>0?'#d97706':e<0?'#dc2626':'#d1d5db')+';\">'+
+        (e!==0?'₹'+e.toLocaleString():'—')+'</td>'+
       '<td style="padding:10px 6px;text-align:right;color:'+(r>0?'#3b82f6':'#d1d5db')+';white-space:nowrap;">'+
         (r>0?'₹'+r.toLocaleString()+loanNote:'—')+'</td>'+
       '<td style="padding:10px 6px;text-align:right;color:'+(l>0?'#dc2626':'#d1d5db')+';">'+
