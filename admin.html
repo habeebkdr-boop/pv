@@ -831,8 +831,8 @@ body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padd
                                    <th style="padding:8px 6px;text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;">Member</th>
                                   <th style="padding:8px 4px;text-align:right;color:#15803d;font-size:10px;text-transform:uppercase;">Savings</th>
                                   <th style="padding:8px 4px;text-align:right;color:#b45309;font-size:10px;text-transform:uppercase;">Emergency</th>
-                                  <th style="padding:8px 4px;text-align:right;color:#0f766e;font-size:10px;text-transform:uppercase;">Repaid</th>
-                                  <th style="padding:8px 4px;text-align:right;color:var(--danger);font-size:10px;text-transform:uppercase;">Loan</th>
+                                  
+                                  <th style="padding:8px 4px;text-align:right;color:var(--danger);font-size:10px;text-transform:uppercase;">Loan Bal</th>
                                   <th style="padding:8px 4px;text-align:right;color:var(--primary);font-size:10px;text-transform:uppercase;">Net</th>
                              </tr>
                     </thead>
@@ -1653,14 +1653,14 @@ function renderSummaryTable(){
     const neg = net < 0;
     totSav  += m.savings;
     totEmer += m.emergency;
-    totRep  += m.repay;
+    
     totLoan += m.loanBalance;
     totNet  += net;
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:7px 6px;font-weight:700;font-size:11px;">${sn}</td>
       <td style="padding:7px 4px;text-align:right;color:#15803d;font-weight:600;">₹${fmt(m.savings)}</td>
       <td style="padding:7px 4px;text-align:right;color:#b45309;font-weight:600;">₹${fmt(m.emergency)}</td>
-      <td style="padding:7px 4px;text-align:right;color:#0f766e;font-weight:600;">₹${fmt(m.repay)}</td>
+      
       <td style="padding:7px 4px;text-align:right;color:var(--danger);font-weight:600;">₹${fmt(m.loanBalance)}</td>
       <td style="padding:7px 4px;text-align:right;color:${neg?'var(--danger)':'var(--primary)'};font-weight:800;">₹${fmt(net)}</td>
     </tr>`;
@@ -1669,7 +1669,7 @@ function renderSummaryTable(){
     <td style="padding:8px 6px;font-size:11px;">TOTAL</td>
     <td style="padding:8px 4px;text-align:right;color:#15803d;font-size:11px;">₹${fmt(totSav)}</td>
     <td style="padding:8px 4px;text-align:right;color:#b45309;font-size:11px;">₹${fmt(totEmer)}</td>
-    <td style="padding:8px 4px;text-align:right;color:#0f766e;font-size:11px;">₹${fmt(totRep)}</td>
+   
     <td style="padding:8px 4px;text-align:right;color:var(--danger);font-size:11px;">₹${fmt(totLoan)}</td>
     <td style="padding:8px 4px;text-align:right;color:var(--primary);font-size:11px;">₹${fmt(totNet)}</td>
   </tr>`;
