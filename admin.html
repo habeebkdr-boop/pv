@@ -2613,9 +2613,9 @@ function loadDashStatement() {
 
           <td style="padding:8px 8px;border-bottom:1px solid var(--border);color:var(--text2);white-space:nowrap;">${fmtAdminDate(e.date||'—')}</td>
 
-          <td style="padding:8px 8px;border-bottom:1px solid var(--border);text-align:right;font-weight:700;color:${e.savings>0?'#15803d':'var(--muted)'};">${e.savings>0?'₹'+fmt(e.savings):''}</td>
+          <td style="padding:8px 8px;border-bottom:1px solid var(--border);text-align:right;font-weight:700;color:${e.savings!==0&&e.savings!==''?(e.savings<0?'#dc2626':'#15803d'):'var(--muted)'};\">${e.savings!==0&&e.savings!==''?'₹'+fmt(e.savings):''}</td>
 
-          <td style="padding:8px 8px;border-bottom:1px solid var(--border);text-align:right;font-weight:700;color:${e.emergency>0?'#b45309':'var(--muted)'};">${e.emergency>0?'₹'+fmt(e.emergency):''}</td>
+          <td style="padding:8px 8px;border-bottom:1px solid var(--border);text-align:right;font-weight:700;color:${e.emergency!==0&&e.emergency!==''?(e.emergency<0?'#dc2626':'#b45309'):'var(--muted)'};">${e.emergency!==0&&e.emergency!==''?'₹'+fmt(e.emergency):''}</td>
 
           <td style="padding:8px 8px;border-bottom:1px solid var(--border);text-align:right;font-weight:700;color:${e.repay>0?'#0f766e':'var(--muted)'};">${e.repay>0?'₹'+fmt(e.repay):''}</td>
 
