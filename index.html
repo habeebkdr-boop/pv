@@ -879,12 +879,12 @@ function checkSessionError(data){
 }
 // ── Main dashboard loader ─────────────────────────────────────
 function loadMemberDashboard(member){
-  const num = member.split('.')[0].trim().padStart(2,'0');
-  const name = member.split('. ')[1] || '';
+  _txnLoaded=false;
+  const firstName=member.split('. ')[1]||member;
+  const num=member.split('.')[0].trim().padStart(2,'0');
+  const name = firstName || '';
   const af = document.getElementById('avatarFrame');
   if(af) af.src = 'avatar.html?member='+num+'&name='+encodeURIComponent(name);
-_txnLoaded=false;
-  const firstName=member.split('. ')[1]||member,num=member.split('.')[0].trim().padStart(3,'0');
   // welcome row
   const wr=document.getElementById('dashWelcomeRow');
   if(wr){wr.style.display='flex';}
