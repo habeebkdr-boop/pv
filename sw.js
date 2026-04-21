@@ -1,7 +1,8 @@
-const CACHE_NAME = 'pvss-v12';
+const CACHE_NAME = 'pvss-v13';
 const FILES = [
   '/',
   '/index.html',
+  '/avatar.html',
   '/manifest.json',
   '/logo-192.png',
   '/cards.html',
