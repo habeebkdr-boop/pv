@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:transparent;}
+.avatar{
+  width:100%;height:100%;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(135deg,#1a56db,#3b82f6);
+}
+.avatar img{
+  width:100%;height:100%;
+  object-fit:cover;
+  border-radius:50%;
+}
+.avatar .initials{
+  font-family:'Segoe UI',sans-serif;
+  font-size:18px;
+  font-weight:800;
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+<div class="avatar" id="av">
+  <span class="initials" id="initials">?</span>
+</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const member = params.get('member') || '';
+const name   = params.get('name')   || '';
+
+// Get initials from name
+function getInitials(n){
+  const parts = n.trim().split(' ');
+  if(parts.length >= 2) return parts[0][0] + parts[parts.length-1][0];
+  return n.trim().substring(0,2);
+}
+
+// Pad member number to 2 digits
+const num = member.padStart(2,'0');
+
+if(num && num !== '00'){
+  const img = new Image();
+  img.onload = function(){
+    document.getElementById('av').innerHTML =
+      '<img src="photos/'+num+'.jpg" alt="'+name+'">';
+  };
+  img.onerror = function(){
+    // Photo not found — show initials
+    document.getElementById('initials').textContent =
+      name ? getInitials(name) : num;
+  };
+  img.src = 'photos/' + num + '.jpg';
+} else {
+  document.getElementById('initials').textContent =
+    name ? getInitials(name) : '?';
+}
+</script>
+</body>
+</html>
