@@ -51,14 +51,14 @@ if(num && num !== '00'){
   const img = new Image();
   img.onload = function(){
     document.getElementById('av').innerHTML =
-      '<img src="photos/'+num+'.jpg" alt="'+name+'">';
+  '<img src="'+num+'.jpg" alt="'+name+'">';
   };
   img.onerror = function(){
     // Photo not found — show initials
     document.getElementById('initials').textContent =
       name ? getInitials(name) : num;
   };
-  img.src = 'photos/' + num + '.jpg';
+  img.src =  num + '.jpg';
 } else {
   document.getElementById('initials').textContent =
     name ? getInitials(name) : '?';
