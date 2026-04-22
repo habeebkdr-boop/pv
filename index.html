@@ -1014,6 +1014,16 @@ function logout(){
   document.getElementById('memberSelect').value='';
   Object.keys(activeChips).forEach(k=>{if(activeChips[k])toggleChip(k);});
   clearChecklist();_txnLoaded=false;_loanStatusLoaded=false;
+  ['pinCurrent','pinNew','pinConfirm'].forEach(function(id){
+  const el=document.getElementById(id);
+  if(el) el.querySelectorAll('input').forEach(i=>i.value='');
+});
+const pinErr=document.getElementById('pinChgErr');
+if(pinErr) pinErr.classList.remove('visible');
+const pinSuc=document.getElementById('pinChgSuccess');
+if(pinSuc) pinSuc.style.display='none';
+switchLoanTab('apply');
+  
   document.body.classList.remove('dashboard-active');
   showPage('page1');
 }
