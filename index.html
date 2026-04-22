@@ -1252,7 +1252,7 @@ function submitChangePIN(){
   fetch(SCRIPT_URL,{method:'POST',redirect:'follow',
     headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({
-      action:'changePIN',
+      action:'memberChangePIN',
       member:_session.member,
       token:_session.token,
       oldPin:currentPIN,
