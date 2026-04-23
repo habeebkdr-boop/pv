@@ -1073,11 +1073,12 @@ function rebuildMemberAmtRows(){if(!_payForOther)return;const sel=getSelectedMem
       body:JSON.stringify({action:'getMemberLoanId',member:m})})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.status==='ok'){
-        var inp=document.getElementById('mar-'+si);
-        if(inp){
-          if(d.loanId){var f=inp.querySelector('[data-field=loanId]');if(f&&!f.value)f.value=d.loanId;}
-          if(d.monthlyEMI){var r=inp.querySelector('[data-field=repay]');if(r&&!r.value)r.value=d.monthlyEMI;}
+    if(d.status==='ok'){
+      var inp=document.getElementById('mar-'+si);
+      if(inp){
+         if(d.loanId){var f=inp.querySelector('[data-field=loanId]');if(f&&!f.value)f.value=d.loanId;}
+         if(d.monthlyEMI){var r=inp.querySelector('[data-field=repay]');if(r&&!r.value){r.value=d.monthlyEMI;r.dispatchEvent(new Event('input'));}}
+         if(d.subscriptionAmt){var s=inp.querySelector('[data-field=savings]');if(s&&!s.value){s.value=d.subscriptionAmt;s.dispatchEvent(new Event('input'));}}
         }
       }
     }).catch(function(){});
