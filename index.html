@@ -737,7 +737,7 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxT6G0Ervl5KSOctQKPgXkiMngISDb4912tp2t-vMzzDXNOPcF6rGzf2J68d1dGeKNb/exec';
 const ALL_MEMBERS=['01. AZEEZ','02. BASAM','03. YOOSUF','04. FATHIMA','05. SHABIL','06. HISHAM','07. BASITH','08. FARHAN','09. IBRAHIM','10. SHAHINA','11. HABEEB','12. RAMSHIDA','13. SULAIKHA','14. JAFER','15. NASEERA','16. NABEEL','17. RASHEEDA','18. AFSAL RAHMAN','19. NIYAS','20. SHAMNA','21. SHAFEEQ','22. KADER','23. FAIZEL RASI','24. HAIFA','25. JASINA','26. JABIR','27. SHAMEEL.P.V','28. MUBASHIRA','29. NAJIYA P','30. HUDA','31. HEZA MEHWISH','32. HIJAS','33. RAHMATHULLAH','34. SARA','35. SHAMNA HIJAS','36. HELPING HANDS','37. NIHAL. PV'];
 let _checklistMembers = ALL_MEMBERS;
-let _session={member:'',token:'',pin:'',activeLoanId:'',expiry:0},_rawPin='',_payForOther=false,_txnLoaded=false,_loanStatusLoaded=false,_allTxns=[],_activeFilt='all';
+let _session={member:'',token:'',pin:'',activeLoanId:'',monthlyEMI:0,expiry:0},_rawPin='',_payForOther=false,_txnLoaded=false,_loanStatusLoaded=false,_allTxns=[],_activeFilt='all';
 const activeChips={savings:false,emergency:false,repay:false};
 
 function buildChecklist(members){
@@ -964,6 +964,11 @@ function loadMemberDashboard(member){
         const paid=Math.round(Number(data.emiPaid)||0);
         const tot=Math.round(Number(data.totalEMI)||0);
         document.getElementById('emiCount').textContent=paid+' / '+tot;
+        // Auto-fill repayment field with monthly EMI
+        if(data.monthlyEMI && parseFloat(data.monthlyEMI) > 0){
+           const repayInput = document.getElementById('amt-repay');
+           if(repayInput && !repayInput.value) repayInput.value = parseFloat(data.monthlyEMI);
+      }
         const nd=new Date(); nd.setMonth(nd.getMonth()+1); nd.setDate(5);
         document.getElementById('emiNextDue').textContent=nd.toLocaleDateString('en-IN',{day:'2-digit',month:'short'});
         document.getElementById('emiCard').style.display='flex';
@@ -1068,9 +1073,12 @@ function rebuildMemberAmtRows(){if(!_payForOther)return;const sel=getSelectedMem
       body:JSON.stringify({action:'getMemberLoanId',member:m})})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.status==='ok'&&d.loanId){
+      if(d.status==='ok'){
         var inp=document.getElementById('mar-'+si);
-        if(inp){var f=inp.querySelector('[data-field=loanId]');if(f&&!f.value)f.value=d.loanId;}
+        if(inp){
+          if(d.loanId){var f=inp.querySelector('[data-field=loanId]');if(f&&!f.value)f.value=d.loanId;}
+          if(d.monthlyEMI){var r=inp.querySelector('[data-field=repay]');if(r&&!r.value)r.value=d.monthlyEMI;}
+        }
       }
     }).catch(function(){});
   });
