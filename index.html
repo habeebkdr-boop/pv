@@ -629,8 +629,8 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
         <div class="lf2"><label>Monthly Installment (EMI)</label><div class="lawrap"><span class="lrs">₹</span><input type="number" id="loanReqEMI"  oninput="calcLoanEMI()"></div></div>
         <div class="lf2"><label>Number of EMIs <span style="font-weight:400;font-size:10px;color:var(--mut);">(auto-calculated)</span></label><input type="number" id="loanReqNumEMI" placeholder="Auto filled" inputmode="numeric" readonly style="background:#F4F6F4;color:var(--mut);cursor:default;border:2px solid var(--bdr);border-radius:12px;padding:13px 16px;width:100%;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;outline:none;"></div>
         <div class="lf2row">
-          <div class="lf2"><label>Repayment Start Month</label><input type="month" id="loanReqStartMonth" oninput="calcLoanEndMonth()"></div>
-          <div class="lf2"><label>Repayment End Month <span style="font-weight:400;font-size:10px;color:var(--mut);">(auto)</span></label><input type="month" id="loanReqEndMonth" readonly style="background:#F4F6F4;color:var(--mut);cursor:default;border:2px solid var(--bdr);border-radius:12px;padding:13px 16px;width:100%;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;outline:none;"></div>
+          <div class="lf2"><label>Start Month</label><input type="month" id="loanReqStartMonth" oninput="calcLoanEndMonth()"></div>
+          <div class="lf2"><label>Repayment End Month <span style="font-weight:400;font-size:10px;color:var(--mut);"></span></label><input type="month" id="loanReqEndMonth" readonly style="background:#F4F6F4;color:var(--mut);cursor:default;border:2px solid var(--bdr);border-radius:12px;padding:13px 16px;width:100%;font-family:'Nunito',sans-serif;font-size:13px;font-weight:600;outline:none;"></div>
         </div>
         <div class="lstitle">Bank Details</div>
         <div class="lf2"><label>Bank Account Number</label><input type="text" id="loanReqAccNo"  inputmode="numeric" maxlength="18"></div>
@@ -1019,6 +1019,12 @@ function logout(){
   document.getElementById('memberSelect').value='';
   Object.keys(activeChips).forEach(k=>{if(activeChips[k])toggleChip(k);});
   clearChecklist();_txnLoaded=false;_loanStatusLoaded=false;
+  // Clear loan request form so stale data doesn't persist across sessions
+  ['loanReqAmount','loanReqAmountWords','loanReqEMI','loanReqNumEMI','loanReqStartMonth','loanReqEndMonth','loanReqAccNo','loanReqBankName','loanReqBranch','loanReqIFSC'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  var loanErr=document.getElementById('loanReqErr');if(loanErr)loanErr.classList.remove('visible');
+  var loanSuc=document.getElementById('loanReqSuccess');if(loanSuc)loanSuc.style.display='none';
+  var submitBtn=document.querySelector('#lpanel-apply .btn-green');if(submitBtn)submitBtn.style.display='';
+  
   ['pinCurrent','pinNew','pinConfirm'].forEach(function(id){
   const el=document.getElementById(id);
   if(el) el.querySelectorAll('input').forEach(i=>i.value='');
@@ -1341,7 +1347,7 @@ function submitLoanRequest(){
   const btn=document.querySelector('#lpanel-apply .btn-green');btn.textContent='⏳ Submitting...';btn.disabled=true;
   const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),15000);
   fetch(SCRIPT_URL,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'submitLoanRequest',member:_session.member,token:_session.token,pin:_session.pin,loanAmount:amt,amountInWords:aw,monthlyInstallment:emi,startMonth:sm,endMonth:em,accountNumber:acc,bankName:bn,bankBranch:br,ifscCode:ifsc,timestamp:new Date().toISOString()}),signal:ctrl.signal})
-  .then(r=>r.json()).then(data=>{clearTimeout(timer);if(data.status==='ok'){document.getElementById('loanReqRef').textContent='📋 Reference: '+(data.ref||'—');document.getElementById('loanReqSuccess').style.display='block';document.querySelector('#lpanel-apply .btn-green').style.display='none';['loanReqAmount','loanReqAmountWords','loanReqEMI','loanReqStartMonth','loanReqEndMonth','loanReqAccNo','loanReqBankName','loanReqBranch','loanReqIFSC'].forEach(id=>document.getElementById(id).value='');_loanStatusLoaded=false;}else{err.textContent='⚠️ '+(data.message||'Submission failed.');err.classList.add('visible');}})
+  .then(r=>r.json()).then(data=>{clearTimeout(timer);if(data.status==='ok'){document.getElementById('loanReqRef').textContent='📋 Reference: '+(data.ref||'—');document.getElementById('loanReqSuccess').style.display='block';document.querySelector('#lpanel-apply .btn-green').style.display='none';['loanReqAmount','loanReqAmountWords','loanReqEMI','loanReqNumEMI','loanReqStartMonth','loanReqEndMonth','loanReqAccNo','loanReqBankName','loanReqBranch','loanReqIFSC'].forEach(id=>document.getElementById(id).value='');_loanStatusLoaded=false;}else{err.textContent='⚠️ '+(data.message||'Submission failed.');err.classList.add('visible');}})
   .catch(e=>{clearTimeout(timer);err.textContent=e.name==='AbortError'?'⚠️ Request timed out.':'⚠️ Connection error.';err.classList.add('visible');})
   .finally(()=>{btn.textContent='🏦 Submit Loan Request';btn.disabled=false;});}
 
