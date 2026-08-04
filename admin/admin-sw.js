@@ -4,7 +4,7 @@
 // offline. This avoids the "stuck on an old cached version" problem PWAs
 // are prone to.
 
-const CACHE_NAME = 'pvss-admin-cache-v2';
+const CACHE_NAME = 'pvss-admin-cache-v3';
 const PRECACHE_URLS = [
   './',
   'index.html',
