@@ -6,11 +6,13 @@
 
 const CACHE_NAME = 'pvss-admin-cache-v2';
 const PRECACHE_URLS = [
-  'admin.html',
+  './',
+  'index.html',
   'admin-manifest.json',
   'admin-icon-192.png',
   'admin-icon-512.png'
 ];
+
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
