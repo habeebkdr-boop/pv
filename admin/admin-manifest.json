@@ -2,7 +2,7 @@
   "name": "PVSS Admin Panel",
   "short_name": "PVSS Admin",
   "description": "Puthenveettil Savings Scheme — Admin Panel",
-  "start_url": "/pv/admin/admin.html",
+  "start_url": "/pv/admin/",
   "scope": "/pv/admin/",
   "display": "standalone",
   "orientation": "portrait-primary",
