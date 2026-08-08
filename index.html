@@ -948,6 +948,10 @@ function checkSessionError(data){
 // ── Main dashboard loader ─────────────────────────────────────
 function loadMemberDashboard(member){
   _txnLoaded=false;
+  // Reset payment fields so stale values from a previous session/member don't linger
+  const repayInput=document.getElementById('amt-repay');
+  if(repayInput) repayInput.value='';
+  _session.activeLoanId=''; // also clear cached loan id from any prior member
   const firstName=member.split('. ')[1]||member;
   const num=member.split('.')[0].trim().padStart(2,'0');
   const name = firstName || '';
