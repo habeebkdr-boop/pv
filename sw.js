@@ -6,7 +6,6 @@ const FILES = [
   './manifest.json',
   './logo-192.png',
   './cards.html',
-  './cards1.html',
   './ribbon.html',
   './sw.js'
 ];
