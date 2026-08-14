@@ -2146,7 +2146,7 @@ function renderLoanCard(loan){
 
   else if(s==='CERTIFIED' &&(role==='APPROVER')) actions=`<button class="btn-loan-app" onclick="loanAction('approveLoan','${loan.rowIndex}')"><i class="fas fa-thumbs-up"></i> Approve</button><button class="btn-loan-rej" onclick="loanAction('rejectLoan','${loan.rowIndex}')"><i class="fas fa-times"></i></button>`;
 
-  else if(s==='APPROVED')  actions=`<div style="font-size:12px;color:var(--success);font-weight:700;padding:4px 0;"><i class="fas fa-check-circle"></i> Fully Approved — Awaiting Disbursement</div>`;
+  else if(s==='APPROVED')  actions=`<div style="font-size:12px;color:var(--success);font-weight:700;padding:4px 0;"><i class="fas fa-check-circle"></i> Fully Approved — Disbursed</div>`;
 
   else if(s==='REJECTED')  actions=`<div style="font-size:12px;color:var(--danger);font-weight:700;padding:4px 0;"><i class="fas fa-times-circle"></i> Rejected</div>`;
 
@@ -2178,7 +2178,7 @@ function renderLoanCard(loan){
 
         <div class="di"><div class="di-lbl">Duration</div><div class="di-val">${formatYM(loan.startMonth)} → ${formatYM(loan.endMonth)}</div></div>
 
-        <div class="di"><div class="di-lbl">Loan ID</div><div class="di-val" id="lid-disp-${loan.rowIndex}">${loan.loanId||'<span style="color:#9ca3af;">Not assigned</span>'}</div></div>
+        <div class="di"><div class="di-lbl">Loan ID</div><div class="di-val" id="lid-disp-${loan.rowIndex}">${loan.loanId||'<span style="color:#9ca3af;">Loan ID Assigned</span>'}</div></div>
 
       </div>
 
