@@ -1310,29 +1310,19 @@ function loadFallbackMembers(sel){
 // Format date as 27-Mar-2026
 
 function fmtAdminDate(raw){
-
   if(!raw||raw==='—')return raw||'—';
-
-  var d;
-
   var s=String(raw).trim();
-
-  if(s.includes('/')){var p=s.split('/');d=new Date(parseInt(p[2]),parseInt(p[1])-1,parseInt(p[0]));}
-
-  else if(s.includes('-')&&s.split('-').length===3){var p=s.split('-');
-
-    if(p[0].length===4)d=new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));
-
-    else d=new Date(parseInt(p[2]),parseInt(p[1])-1,parseInt(p[0]));}
-
-  else d=new Date(s);
-
-  if(!d||isNaN(d.getTime()))return s;
-
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-  return ('0'+d.getDate()).slice(-2)+'-'+months[d.getMonth()]+'-'+d.getFullYear();
-
+  if(s.includes('/')){var p=s.split('/');var mi=parseInt(p[1])-1;if(mi>=0&&mi<12)return ('0'+p[0]).slice(-2)+'-'+months[mi]+'-'+p[2];}
+  var tstr=s.match(/^\w+\s+(\w{3})\s+(\d{2})\s+(\d{4})/);
+  if(tstr){var mi=months.indexOf(tstr[1]);if(mi>=0)return tstr[2]+'-'+months[mi]+'-'+tstr[3];}
+  var iso=s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(iso){var mi=parseInt(iso[2])-1;if(mi>=0&&mi<12)return iso[3]+'-'+months[mi]+'-'+iso[1];}
+  var dmy=s.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if(dmy){var mi=parseInt(dmy[2])-1;if(mi>=0&&mi<12)return ('0'+dmy[1]).slice(-2)+'-'+months[mi]+'-'+dmy[3];}
+  var d=new Date(s);
+  if(!isNaN(d.getTime()))return ('0'+d.getDate()).slice(-2)+'-'+months[d.getMonth()]+'-'+d.getFullYear();
+  return s;
 }
 
 function adminLogin(){
