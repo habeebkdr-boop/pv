@@ -81,7 +81,7 @@ body.dashboard-active .bottom-design-container{display:none;}
 
 
 /* Card: floating on login, flat full-screen on dashboard */
-.card{background:#ffffff;border-radius:24px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.card{background:#ffffff;border-radius:24px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);flex-shrink:0;}
 body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;background:#FAFAF5;height:100%;height:100dvh;}
 @media(min-width:600px){
   body{padding:0;background:#fcfdfa;}
@@ -819,13 +819,12 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
 <!-- Bottom U-shaped wave design (login screen only) -->
 <div class="bottom-design-container">
   <svg viewBox="0 0 1000 300" preserveAspectRatio="none">
-    <path d="M 0,50 Q 360,230 1000,190 L 1000,300 L 0,300 Z" fill="#a3c9a8" />
-    <path d="M 0,200 Q 480,265 1000,155 L 1000,300 L 0,300 Z" fill="#e58325" />
-    <path d="M 0,80 Q 480,270 1000,180 L 1000,300 L 0,300 Z" fill="#0f5934" />
+    <path d="M 0,100 Q 100,100 1000,100 L 1000,300 L 0,300 Z" fill="#a3c9a8" />
+    <path d="M 0,100 Q 480,100 1000,155 L 1000,300 L 0,300 Z" fill="#e58325" />
+    <path d="M 0,120 Q 120,120 1000,120 L 1000,300 L 0,300 Z" fill="#0f5934" />
   </svg>
   <div class="bottom-footer-text">
-    <div><strong>Puthan Veettil Savings Scheme</strong></div>
-    <div class="subtext">🌱 Together We Save, Together We Grow 🌱</div>
+    <div>🌱 Together We Save, Together We Grow 🌱</div>
   </div>
 </div>
 
