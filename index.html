@@ -830,6 +830,7 @@ body.dashboard-active .card{border-radius:0;max-width:100%;box-shadow:none;backg
 <script>
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxT6G0Ervl5KSOctQKPgXkiMngISDb4912tp2t-vMzzDXNOPcF6rGzf2J68d1dGeKNb/exec';
 let _checklistMembers = [];
+let _memberDefaults = {};
 let _session={member:'',token:'',pin:'',activeLoanId:'',monthlyEMI:0,expiry:0},_rawPin='',_payForOther=false,_txnLoaded=false,_loanStatusLoaded=false,_allTxns=[],_activeFilt='all';
 const activeChips={savings:false,emergency:false,repay:false};
 
@@ -863,6 +864,15 @@ function loadMemberList(attempt){
     clearTimeout(timer);
     if(data.status === 'ok' && Array.isArray(data.members) && data.members.length > 0){
       const names = data.members.map(m => typeof m === 'string' ? m : (m.name || m.displayName || m));
+      // ↓ INSERT this block right here, before sel.innerHTML=...
+      data.members.forEach(m=>{
+        if (typeof m === 'object' && m.name) {
+          _memberDefaults[m.name] = {
+            subscription: Number(m.subscription) || 0,
+            emergency: Number(m.emergency) || 0
+          };
+        }
+      });
       sel.innerHTML = '<option value="">— Select your name —</option>' +
         names.map(n => `<option value="${n}">${n}</option>`).join('');
       buildChecklist(names); // ← live list for multi-member too
@@ -1173,7 +1183,23 @@ function goToPayment(p){
   showPaymentStep('form');
 }
 
-function rebuildMemberAmtRows(){if(!_payForOther)return;const sel=getSelectedMembers(),ct=document.getElementById('memberAmtRows'),hint=document.getElementById('noMembersHint');if(sel.length===0){ct.innerHTML='';if(hint)hint.style.display='block';return;}if(hint)hint.style.display='none';const ex={};ct.querySelectorAll('.mar').forEach(r=>{const n=r.dataset.member;ex[n]={savings:r.querySelector('[data-field=savings]')?.value||'',emergency:r.querySelector('[data-field=emergency]')?.value||'',repay:r.querySelector('[data-field=repay]')?.value||'',loanId:r.querySelector('[data-field=loanId]')?.value||'',notes:r.querySelector('[data-field=notes]')?.value||''};});ct.innerHTML=sel.map(m=>{const prev=ex[m]||{},sn=m.split('. ')[1]||m,np=m.split('.')[0].trim(),si=m.replace(/[^a-zA-Z0-9]/g,'_');return`<div class="mar" data-member="${m}" id="mar-${si}"><div class="mar-hdr"><div class="mar-num">${np}</div><div class="mar-name">${sn}</div><div class="mar-total" id="mar-total-${si}"></div></div><div class="mar-body"><div class="maf"><label>💰 Savings</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="savings" placeholder="0" value="${prev.savings||1000}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>🛡️ Emergency</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="emergency" placeholder="0" value="${prev.emergency||100}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>🔄 Repayment</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="repay" placeholder="0" value="${prev.repay||''}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>Loan ID</label><div class="awrap"><span class="rs" style="font-size:11px;">#</span><input type="text" data-field="loanId" placeholder="PVIDYY" value="${prev.loanId||''}"></div></div><div class="maf maf-full"><label>Notes</label><div class="awrap"><span class="rs" style="font-size:11px;">✏️</span><input type="text" data-field="notes" placeholder="Remarks..." value="${prev.notes||''}"></div></div><div class="mar-rowttl" id="mar-row-total-${si}"></div></div></div>`;}).join('');sel.forEach(m=>updateRowTotal(m.replace(/[^a-zA-Z0-9]/g,'_')));
+(function(){
+  const payDateEl = document.getElementById('payDate');
+  if (payDateEl && !payDateEl.dataset.confirmBound) {
+    payDateEl.dataset.confirmBound = 'true';
+    payDateEl.addEventListener('change', function(e){
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (e.target.value !== todayStr) {
+        const ok = confirm('You changed the payment date to ' + e.target.value.split('-').reverse().join('-') + '. Are you sure?');
+        if (!ok) {
+          e.target.value = todayStr; // revert to today
+        }
+      }
+    });
+  }
+})();
+
+function rebuildMemberAmtRows(){if(!_payForOther)return;const sel=getSelectedMembers(),ct=document.getElementById('memberAmtRows'),hint=document.getElementById('noMembersHint');if(sel.length===0){ct.innerHTML='';if(hint)hint.style.display='block';return;}if(hint)hint.style.display='none';const ex={};ct.querySelectorAll('.mar').forEach(r=>{const n=r.dataset.member;ex[n]={savings:r.querySelector('[data-field=savings]')?.value||'',emergency:r.querySelector('[data-field=emergency]')?.value||'',repay:r.querySelector('[data-field=repay]')?.value||'',loanId:r.querySelector('[data-field=loanId]')?.value||'',notes:r.querySelector('[data-field=notes]')?.value||''};});ct.innerHTML=sel.map(m=>{const prev=ex[m]||{},sn=m.split('. ')[1]||m,np=m.split('.')[0].trim(),si=m.replace(/[^a-zA-Z0-9]/g,'_');return`<div class="mar" data-member="${m}" id="mar-${si}"><div class="mar-hdr"><div class="mar-num">${np}</div><div class="mar-name">${sn}</div><div class="mar-total" id="mar-total-${si}"></div></div><div class="mar-body"><div class="maf"><label>💰 Savings</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="savings" placeholder="0" value="${prev.savings!==''&&prev.savings!==undefined?prev.savings:((_memberDefaults[m]&&_memberDefaults[m].subscription)||0)}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>🛡️ Emergency</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="emergency" placeholder="0" value="${prev.emergency!==''&&prev.emergency!==undefined?prev.emergency:((_memberDefaults[m]&&_memberDefaults[m].emergency)||0)}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>🔄 Repayment</label><div class="awrap"><span class="rs">₹</span><input type="number" data-field="repay" placeholder="0" value="${prev.repay||''}" inputmode="numeric" oninput="updateRowTotal('${si}')"></div></div><div class="maf"><label>Loan ID</label><div class="awrap"><span class="rs" style="font-size:11px;">#</span><input type="text" data-field="loanId" placeholder="PVIDYY" value="${prev.loanId||''}"></div></div><div class="maf maf-full"><label>Notes</label><div class="awrap"><span class="rs" style="font-size:11px;">✏️</span><input type="text" data-field="notes" placeholder="Remarks..." value="${prev.notes||''}"></div></div><div class="mar-rowttl" id="mar-row-total-${si}"></div></div></div>`;}).join('');sel.forEach(m=>updateRowTotal(m.replace(/[^a-zA-Z0-9]/g,'_')));
   // Auto-fetch loan ID for each selected member
   sel.forEach(function(m){
     var si=m.replace(/[^a-zA-Z0-9]/g,'_');
