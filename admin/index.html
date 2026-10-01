@@ -1270,35 +1270,26 @@ function api(payload){
 // ── Load member list for dropdown ────────────────────────
 
 function loadMemberDropdown(){
-
   const sel=document.getElementById('adminSelect');
-
   const sub=document.getElementById('loginSub');
-
-  // Use static list immediately — prevents dropdown resetting mid-selection
-
-  // when a slow server response arrives and rebuilds innerHTML
-
-  loadFallbackMembers(sel);
-
-  sub.textContent='Authorised committee members only';
-
-}
-
-
-
-function loadFallbackMembers(sel){
-
-  // Committee members only
-
-  const committee=['01. AZEEZ','03. YOOSUF','06. HISHAM','08. FARHAN',
-
-    '09. IBRAHIM','11. HABEEB','16. NABEEL','18. AFSAL RAHMAN','32. HIJAS','02. BASAM',];
-
-  sel.innerHTML='<option value="">— Select your name —</option>'+
-
-    committee.map(m=>`<option value="${m}">${m}</option>`).join('');
-
+  sub.textContent='Loading member list...';
+  fetch(SCRIPT_URL,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify({action:'getActiveMembersList'})})
+  .then(r=>r.json())
+  .then(d=>{
+    if(d.status==='ok' && Array.isArray(d.members) && d.members.length){
+      sel.innerHTML='<option value="">— Select your name —</option>'+
+        d.members.map(m=>`<option value="${m.displayName}">${m.displayName}</option>`).join('');
+      sub.textContent='Authorised committee members only';
+    } else {
+      sel.innerHTML='<option value="">— Could not load member list —</option>';
+      sub.textContent='⚠️ Could not load member list. Pull to refresh and try again.';
+    }
+  })
+  .catch(()=>{
+    sel.innerHTML='<option value="">— Could not load member list —</option>';
+    sub.textContent='⚠️ Connection error. Pull to refresh and try again.';
+  });
 }
 
 
