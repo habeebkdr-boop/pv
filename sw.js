@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pvss-v61';
+const CACHE_NAME = 'pvss-v62';
 const FILES = [
   './',
   './index.html',
