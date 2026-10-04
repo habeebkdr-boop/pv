@@ -4,7 +4,7 @@
   "description": "PVSS Member Portal",
   "id": "/pv/index.html",
   "start_url": "/pv/index.html",
-  "scope": "/pv/index.html",
+  "scope": "/pv/",
   "display": "standalone",
   "background_color": "#fcfdfa",
   "theme_color": "#fcfdfa",
