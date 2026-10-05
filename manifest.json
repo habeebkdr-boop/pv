@@ -2,7 +2,7 @@
   "name": "Puthan Veettil Savings Scheme",
   "short_name": "PV Savings",
   "description": "PVSS Member Portal",
-  "id": "/pv/portal",
+  "id": "/pv/portal/",
   "start_url": "/pv/portal/index.html?source=pwa",
   "scope": "/pv/portal/",
   "display": "standalone",
