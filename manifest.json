@@ -3,7 +3,7 @@
   "short_name": "PV Savings",
   "description": "PVSS Member Portal",
   "id": "/pv/portal/",
-  "start_url": "/pv/portal/index.html?source=pwa",
+  "start_url": "/pv/index.html?source=pwa",
   "scope": "/pv/portal/",
   "display": "standalone",
   "background_color": "#fcfdfa",
