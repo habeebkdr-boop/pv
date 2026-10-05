@@ -4,7 +4,7 @@
   "description": "PVSS Member Portal",
   "id": "/pv/portal/",
   "start_url": "/pv/index.html?source=pwa",
-  "scope": "/pv/portal/",
+  "scope": "/pv/",
   "display": "standalone",
   "background_color": "#fcfdfa",
   "theme_color": "#fcfdfa",
@@ -16,11 +16,13 @@
       "type": "image/png",
       "purpose": "any"
     },
+    { "src": "logo-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
     {
       "src": "logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     }
+    { "src": "logo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
   ]
 }
