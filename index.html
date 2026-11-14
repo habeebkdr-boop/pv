@@ -1376,6 +1376,7 @@ function goToPayment(p){
     pff.style.display='none';ss.style.display='block';ms.style.display='none';
     if(!activeChips.savings)toggleChip('savings');
     if(!activeChips.emergency)toggleChip('emergency');
+    if(_session.hasActiveLoan && !_session.repayDoneThisMonth && !activeChips.repay)toggleChip('repay');
     // Auto-fill Loan ID for single payment
     if(_session.activeLoanId){
       const lidEl=document.getElementById('loanId');
